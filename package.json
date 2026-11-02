@@ -1,0 +1,17 @@
+{
+  "name": "headless-puzzlescript",
+  "version": "1.0.0",
+  "description": "A headless wrapper for playing Puzzlescript games.",
+  "license": "ISC",
+  "author": "estiftole",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "canvas": "^3.2.3",
+    "jsdom": "^30.0.1",
+    "ws": "^8.22.0"
+  }
+}

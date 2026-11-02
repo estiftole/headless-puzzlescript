@@ -1,5 +1,5 @@
 # Headless Puzzlescript
-A Node JS Puzzlescript wrapper to run games in headless mode. It runs the original [Puzzlescript game engine](https://github.com/increpare/PuzzleScript) in a fake DOM and interacts with it through native functions. This wrapper is likely compatible with any Puzzlescript game source, but it is a work-in-progress so universal compatiblity is not guaranteed.
+A Node JS Puzzlescript wrapper to run games in headless mode. It runs the original [Puzzlescript game engine](https://github.com/increpare/PuzzleScript) in a mock-DOM and interacts with it through native functions. This wrapper is likely compatible with any Puzzlescript game, but it is a work-in-progress so universal compatiblity is not guaranteed.
 
 # Setup
 ```bash
@@ -11,7 +11,7 @@ cd headless-puzzlescript
 npm install
 
 # Run websocket server
-node servers/wss.js
+node servers/singe_env/wss.js
 ```
 
 To use your Puzzlescript game:
@@ -19,6 +19,7 @@ To use your Puzzlescript game:
 - Put that file in `/sources`
 - Modify `SOURCE_PATH` in `workers/singleEnvWorker.js`
 - Test that it works by running `node template.js`
+- Start websocket server with `node servers/singe_env/wss.js`
 
 # Python Example
 

@@ -4,7 +4,7 @@ async function main() {
   const gameTitle = 'example_game';
   console.log(`Playing ${gameTitle}`);
 
-  const env = new EnvWrapper(`./sources/${gameTitle}.ps`);
+  const env = new EnvWrapper(`./sources/${gameTitle}.ps`, false);
   await env.start();
   await env.genericInit();
 

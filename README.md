@@ -30,6 +30,7 @@ class WebSocketGameEnv:
         self.session_id = None
 
     def start_session(self, perfect_mode=False):
+        # Start a new game session
         self.ws.send(json.dumps({
             'type': 'start_session',
             'perfect_mode': perfect_mode
@@ -38,6 +39,7 @@ class WebSocketGameEnv:
         self.session_id = res["sessionId"]
 
     def step(self, action, log_transition=False):
+        # Perform a single step in the environment
         self.ws.send(json.dumps({
             'sessionId': self.session_id,
             'type': 'step',
@@ -46,6 +48,7 @@ class WebSocketGameEnv:
         }))
 
     def perform_step_sequence(self, step_sequence, log_transition=False):
+        # Send a step sequence to the server
         self.ws.send(json.dumps({
             'sessionId': self.session_id,
             'type': 'perform_step_sequence',
@@ -54,12 +57,14 @@ class WebSocketGameEnv:
         }))
 
     def draw(self):
+        # Draw the last game state in the server's terminal
         self.ws.send(json.dumps({
             'sessionId': self.session_id,
             'type': 'draw',
         }))
 
     def close(self):
+        # Close session
         self.ws.close()
 ```
 

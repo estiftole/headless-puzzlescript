@@ -1,5 +1,5 @@
 const { parentPort } = require('worker_threads');
-const { EnvWrapper } = require('../env.js');
+const { EnvWrapper } = require('../envs/singleEnv.js');
 
 class GameInstance {
   constructor(sourcePath) {

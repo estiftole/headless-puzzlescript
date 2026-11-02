@@ -1,4 +1,4 @@
-const { EnvWrapper } = require('./env.js');
+const { EnvWrapper } = require('./singleEnv.js');
 const { JSDOM } = require('jsdom');
 
 class ParallelEnvironment {

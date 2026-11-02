@@ -1,5 +1,5 @@
-const { getSource, saveSource } = require('./utils.js');
-const { iframeInstance } = require('./htmlHandler.js');
+const { getSource, saveSource } = require('../utils/sourceUtils.js');
+const { iframeInstance } = require('../utils/htmlHandler.js');
 const { JSDOM } = require('jsdom');
 
 const KEYMAP  = {

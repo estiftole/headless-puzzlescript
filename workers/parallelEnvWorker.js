@@ -1,5 +1,5 @@
 const { parentPort } = require('worker_threads');
-const { ParallelEnvironment } = require('../parallelEnv.js');
+const { ParallelEnvironment } = require('../envs/parallelEnv.js');
 
 const GAME_TITLE = 'almost_akurra';
 // const GAME_TITLE = 'boston_tea_party';

@@ -1,4 +1,4 @@
-const { EnvWrapper } = require('./env.js');
+const { EnvWrapper } = require('./envs/singleEnv.js');
 
 async function main() {
   const gameTitle = 'example_game';

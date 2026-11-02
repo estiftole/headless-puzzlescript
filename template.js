@@ -1,7 +1,7 @@
 const { EnvWrapper } = require('./env.js');
 
 async function main() {
-  const gameTitle = 'almost_akurra';
+  const gameTitle = 'example_game';
   console.log(`Playing ${gameTitle}`);
 
   const env = new EnvWrapper(`./sources/${gameTitle}.ps`);

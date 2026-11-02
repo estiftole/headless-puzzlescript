@@ -1,21 +1,35 @@
-const WebSocket = require('ws');
 const { Worker } = require('worker_threads');
+const { parseArgs } = require('node:util');
 const crypto = require('crypto');
+const WebSocket = require('ws');
+
+const { values } = parseArgs({
+  options: {
+    parallel: { type: 'boolean', short: 'p' },
+    single: { type: 'boolean', short: 's' }
+  }
+});
+
+let envMode = 'singleEnvWorker';
+if (values.parallel) {
+  envMode = 'parallelEnvWorker';
+} else if (values.single) {
+  envMode = 'singleEnvWorker';
+}
 
 const PORT = 8080;
-const wss = new WebSocket.Server({ port: PORT });
-
 const WORKER_COUNT = 4;
+
 const workers = [];
 let nextWorkerIdx = 0;
 
-for (let i = 0; i < WORKER_COUNT; i++) {
-  const worker = new Worker('./workers/parallelEnvWorker.js');
-  workers.push(worker);
-}
-
 const sessionToClientWs = new Map();
 const sessionToWorker = new Map();
+
+for (let i = 0; i < WORKER_COUNT; i++) {
+  const worker = new Worker(`./workers/${envMode}.js`);
+  workers.push(worker);
+}
 
 workers.forEach((worker) => {
   worker.on('message', (message) => {
@@ -32,6 +46,8 @@ workers.forEach((worker) => {
     }
   });
 });
+
+const wss = new WebSocket.Server({ port: PORT });
 
 wss.on('connection', (ws) => {
   ws.on('message', (message) => {

@@ -1,20 +1,35 @@
-const net = require('net');
 const { Worker } = require('worker_threads');
+const { parseArgs } = require('node:util');
 const crypto = require('crypto');
+const net = require('net');
+
+const { values } = parseArgs({
+  options: {
+    parallel: { type: 'boolean', short: 'p' },
+    single: { type: 'boolean', short: 's' }
+  }
+});
+
+let envMode = 'singleEnvWorker';
+if (values.parallel) {
+  envMode = 'parallelEnvWorker';
+} else if (values.single) {
+  envMode = 'singleEnvWorker';
+}
 
 const PORT = 8080;
-
 const WORKER_COUNT = 4;
+
 const workers = [];
 let nextWorkerIdx = 0;
 
-for (let i = 0; i < WORKER_COUNT; i++) {
-  const worker = new Worker('./workers/singleEnvWorker.js');
-  workers.push(worker);
-}
-
 const sessionToSocket = new Map();
 const sessionToWorker = new Map();
+
+for (let i = 0; i < WORKER_COUNT; i++) {
+  const worker = new Worker(`./workers/${envMode}.js`);
+  workers.push(worker);
+}
 
 workers.forEach((worker) => {
   worker.on('message', (message) => {

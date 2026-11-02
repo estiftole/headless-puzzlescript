@@ -36,42 +36,49 @@ class WebSocketGameEnv:
         self.ws = websocket.create_connection(uri)
         self.session_id = None
 
+    # Start a new game session
     def start_session(self, perfect_mode=False):
-        # Start a new game session
         self.ws.send(json.dumps({
             'type': 'start_session',
             'perfect_mode': perfect_mode
         }))
         res = json.loads(self.ws.recv())
         self.session_id = res["sessionId"]
+        return res
 
+    # Perform a single step in the environment
     def step(self, action, log_transition=False):
-        # Perform a single step in the environment
         self.ws.send(json.dumps({
             'sessionId': self.session_id,
             'type': 'step',
             'action': action,
             'log_transition': log_transition
         }))
+        res = json.loads(self.ws.recv())
+        return res
 
+    # Send a step sequence to the server
     def perform_step_sequence(self, step_sequence, log_transition=False):
-        # Send a step sequence to the server
         self.ws.send(json.dumps({
             'sessionId': self.session_id,
             'type': 'perform_step_sequence',
             'step_sequence': step_sequence,
             'log_transition': log_transition
         }))
+        res = json.loads(self.ws.recv())
+        return res
 
+    # Draw the last game state in the server's terminal
     def draw(self):
-        # Draw the last game state in the server's terminal
         self.ws.send(json.dumps({
             'sessionId': self.session_id,
             'type': 'draw',
         }))
+        res = json.loads(self.ws.recv())
+        return res
 
+    # Close session
     def close(self):
-        # Close session
         self.ws.close()
 ```
 

@@ -1,5 +1,5 @@
 # Headless Puzzlescript
-A Puzzlescript wrapper in Node JS to run games in headless mode. It runs the original [Puzzlescript game engine](https://github.com/increpare/PuzzleScript) in a fake DOM and interacts with it through native functions. This wrapper is likely compatible with any Puzzlescript game source, but it is a work-in-progress so universal compatiblity is not guaranteed.
+A Node JS Puzzlescript wrapper to run games in headless mode. It runs the original [Puzzlescript game engine](https://github.com/increpare/PuzzleScript) in a fake DOM and interacts with it through native functions. This wrapper is likely compatible with any Puzzlescript game source, but it is a work-in-progress so universal compatiblity is not guaranteed.
 
 # Setup
 ```bash

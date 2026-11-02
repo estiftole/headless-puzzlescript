@@ -8,7 +8,7 @@ async function main() {
   await env.start();
   await env.genericInit();
 
-  actions = ["Right", "Right", "Up", "Up", "Up", "Up", "Left"];
+  actions = ["Up", "Down", "Left", "Right"];
   for (let i = 0; i < actions.length; i++) {
     action = actions[i];
     await env.step(action);

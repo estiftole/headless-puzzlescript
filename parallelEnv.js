@@ -12,21 +12,21 @@ class ParallelEnvironment {
 
     this.notify = notify;
     if (this.notify) {
-      console.log('Creating prog-synth environment...');
-    };
+      console.log('Creating 2 parallel environments...');
+    }
 
     this.gamePath = `./sources/${gameTitle}.ps`;
     this.hypothesisPath = `./sources/${hypothesisTitle}.ps`
-    // this.assetValidationPath = `./sources/workspace/${assetValidationTitle}.ps`
-    if (perfectMode) this.hypothesisPath = this.gamePath;
+    if (perfectMode) {
+      this.hypothesisPath = this.gamePath;
+    }
 
     this.realEnv = new EnvWrapper(this.gamePath, this.notify, 'real', this.masterDom);
     this.hypothesisEnv = new EnvWrapper(this.hypothesisPath, this.notify, 'hypothesis', this.masterDom);
-    // this.assetValidationEnv = new EnvWrapper(this.assetValidationPath, this.notify, 'assets', this.masterDom);
 
     if (this.notify) {
       console.log('Finished creating prog-synth environment.\n');
-    };
+    }
   }
 
   async start() {
@@ -36,17 +36,15 @@ class ParallelEnvironment {
 
     await this.realEnv.start();
     await this.hypothesisEnv.start();
-    // await this.assetValidationEnv.start();
 
     if (this.notify) {
       console.log('Finished starting prog-synth environment.\n');
-    };
+    }
   }
 
   async genericInit() {
     await this.realEnv.genericInit();
     await this.hypothesisEnv.genericInit();
-    // await this.assetValidationEnv.genericInit();
   }
 
   async step(action, logTransition) {

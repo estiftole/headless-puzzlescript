@@ -1,6 +1,8 @@
 const { parentPort } = require('worker_threads');
 const { EnvWrapper } = require('../envs/singleEnv.js');
 
+const SOURCE_PATH = './sources/almost_akurra.ps';
+
 class GameInstance {
   constructor(sourcePath) {
     this.env = new EnvWrapper(sourcePath, false);
@@ -60,7 +62,7 @@ const workerSessions = new Map();
 
 parentPort.on('message', async (message) => {
   if (message.type === 'start_session') {
-    const game = new GameInstance('./sources/almost_akurra.ps');
+    const game = new GameInstance(SOURCE_PATH);
     await game.start();
 
     workerSessions.set(message.sessionId, game);

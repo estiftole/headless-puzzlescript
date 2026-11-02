@@ -1,7 +1,7 @@
 const { parentPort } = require('worker_threads');
 const { EnvWrapper } = require('../envs/singleEnv.js');
 
-const SOURCE_PATH = './sources/almost_akurra.ps';
+const SOURCE_PATH = './sources/example_game.ps';
 
 class GameInstance {
   constructor(sourcePath) {

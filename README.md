@@ -8,7 +8,7 @@ git clone -b main https://github.com/estiftole/headless-puzzlescript.git
 cd headless-puzzlescript
 
 # Install packages
-npm Install
+npm install
 
 # Run websocket server
 node servers/wss.js

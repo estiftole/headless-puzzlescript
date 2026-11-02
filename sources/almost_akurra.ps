@@ -1,0 +1,573 @@
+title Almost Akurra
+author Zachary Barbanell
+homepage zacharybarbanell.itch.io
+
+noaction
+
+(version 0.1)
+
+========
+OBJECTS
+========
+
+Temp
+pink black
+01010
+10101
+01010
+10101
+01010
+
+Mutex
+transparent
+
+Background
+lightblue lightgray
+00010
+00000
+01000
+00001
+00000
+
+Pedestal
+darkgray blue
+00000
+01110
+01010
+01110
+00000
+
+Exit
+darkgreen
+
+Water
+blue white
+00000
+11001
+00110
+00000
+00000
+
+DarkWater
+blue white black
+00000
+12221
+02220
+02220
+00000
+
+Hole
+black
+..0..
+.000.
+00000
+.000.
+..0..
+
+CoveredHole
+green brown
+..1..
+.000.
+11111
+.000.
+..1..
+
+FilledHole
+orange
+..0..
+.000.
+00000
+.000.
+..0..
+
+Spikes
+lightgray gray
+00000
+01010
+00000
+01010
+00000
+
+RedGate
+red
+.....
+00000
+0.0.0
+0.0.0
+0...0
+
+RedBarrier
+red
+.....
+..0..
+.000.
+.000.
+.000.
+
+BlueGate
+blue
+.....
+00000
+0.0.0
+0.0.0
+0...0
+
+BlueBarrier
+blue
+.....
+..0..
+.000.
+.000.
+.000.
+
+YellowGate
+yellow
+.....
+00000
+0.0.0
+0.0.0
+0...0
+
+YellowBarrier
+yellow
+.....
+..0..
+.000.
+.000.
+.000.
+
+InactiveGate
+darkgray
+.....
+00000
+0.0.0
+0.0.0
+0...0
+
+PinkPortal
+pink
+00000
+0...0
+0.0.0
+0...0
+00000
+
+PinkTarget
+pink gray
+.111.
+11011
+10001
+11011
+.111.
+
+BluePortal
+blue
+00000
+0...0
+0.0.0
+0...0
+00000
+
+BlueTarget
+blue gray
+.111.
+11011
+10001
+11011
+.111.
+
+RedPortal
+red
+00000
+0...0
+0.0.0
+0...0
+00000
+
+RedTarget
+red gray
+.111.
+11011
+10001
+11011
+.111.
+
+GreenPortal
+lightgreen
+00000
+0...0
+0.0.0
+0...0
+00000
+
+GreenTarget
+lightgreen gray
+.111.
+11011
+10001
+11011
+.111.
+
+PressurePlateUp
+green lightgreen
+01110
+01010
+01110
+01110
+00000
+
+
+PressurePlateDown
+green lightgreen
+00000
+01110
+01010
+01110
+00000
+
+GreenBarrierDown
+lightgreen
+.....
+00000
+00000
+00000
+00000
+
+GreenBarrierUp
+lightgreen green
+.111.
+01110
+01110
+01110
+00000
+
+Wall
+BROWN DARKBROWN
+00010
+11111
+01000
+11111
+00010
+
+Ledge
+BROWN DARKBROWN lightblue
+02220
+11111
+01000
+11111
+00010
+
+Rock
+gray
+.....
+..00.
+.000.
+.0000
+00000
+
+Player
+Black Orange White Blue
+.000.
+.111.
+22222
+.333.
+.3.3.
+
+Crate
+Orange
+00000
+00000
+00000
+00000
+00000
+
+StoneCrate
+darkgray
+.....
+.000.
+.000.
+.000.
+.....
+
+Ball
+yellow
+.000.
+00000
+00000
+00000
+.000.
+
+PlayerGhost
+pink black
+01010
+10101
+01010
+10101
+01010
+
+CrateGhost
+pink black
+01010
+10101
+01010
+10101
+01010
+
+StoneCrateGhost
+pink black
+01010
+10101
+01010
+10101
+01010
+
+BallGhost
+pink black
+01010
+10101
+01010
+10101
+01010
+
+=======
+LEGEND
+=======
+
+. = Background
+
+~ = Exit
+V = Water
+_ = Pedestal
+U = Hole
+O = CoveredHole
+! = Spikes
+
+# = Wall
+L = Ledge
+$ = Rock
+
+P = Player
+
+* = Crate
+& = StoneCrate
+0 = Ball
+
+A = RedGate
+1 = RedBarrier
+B = BlueGate
+2 = BlueBarrier
+C = YellowGate
+3 = YellowBarrier
+
+Z = PinkPortal
+9 = PinkTarget
+Y = BluePortal
+8 = BlueTarget
+X = RedPortal
+7 = RedTarget
+W = GreenPortal
+6 = GreenTarget
+
+@ = PressurePlateUp
+\ = GreenBarrierDown
+/ = GreenBarrierUp
+
+` = Mutex
+
+
+WaterLike = Water or DarkWater
+HoleLike = Hole or CoveredHole
+PressurePlate = PressurePlateUp or PressurePlateDown
+Target = PinkTarget or BlueTarget or RedTarget or GreenTarget
+Ground = Exit or WaterLike or HoleLike or FilledHole or Pedestal or PressurePlate or GreenBarrierDown or Spikes or Target
+
+Gate = RedGate or BlueGate or YellowGate
+Barrier = RedBarrier or BlueBarrier or YellowBarrier
+Portal = PinkPortal or BluePortal or RedPortal or GreenPortal
+
+PortalLike = Ledge or Portal
+
+GreenBarrier = GreenBarrierUp or GreenBarrierDown
+
+PlayerLike = Player
+WallLike = Wall or InactiveGate or Rock or Barrier or GreenBarrierUp
+
+
+StaticObject = WallLike or Gate or PortalLike
+LightObject = Crate or StoneCrate
+HeavyObject = PlayerLike or Ball 
+
+Object = StaticObject or LightObject or HeavyObject
+
+Hardness1 = Player or Crate
+Hardness2 = StoneCrate
+Hardness3 = Ball
+
+Hardness1Ghost = PlayerGhost or CrateGhost
+Hardness2Ghost = Hardness1Ghost or StoneCrateGhost
+Hardness3Ghost = Hardness2Ghost or BallGhost
+
+Ghost = Hardness3Ghost
+
+=======
+SOUNDS
+=======
+
+================
+COLLISIONLAYERS
+================
+
+Background
+Ground
+Object
+
+PlayerGhost
+CrateGhost
+StoneCrateGhost
+BallGhost
+Temp
+Mutex
+
+======
+RULES
+======
+
+
+
+
+
+[ > Ball | no Object no HoleLike] -> [ | > Ball]
++ [ > Ball | HoleLike | Crate ] -> [ | Hole | ]
++ [ > Ball | HoleLike | PlayerLike ] -> [ | Hole | Player]
++ [ > Ball | HoleLike | PortalLike ] -> [ | HoleLike | PortalLike > BallGhost]
++ [ > Ball | HoleLike | Object ] -> [ | Hole | > Object]
++ [ > Ball | HoleLike | HoleLike ] -> [ | HoleLike | Hole ]
++ [ > Ball | HoleLike | ] -> [ | HoleLike | > Ball]
+
+
++ [ > Player | PortalLike ] -> [ | PortalLike > PlayerGhost]
++ [ > Crate | PortalLike ] -> [ | PortalLike > CrateGhost]
++ [ > StoneCrate | PortalLike ] -> [ | PortalLike > StoneCrateGhost]
++ [ > Ball | PortalLike ] -> [ | PortalLike > BallGhost]
+
++ down [> Ghost Ledge | ... | no Wall] -> [Ledge |...| > Ghost]
+
++ [> Ghost PinkPortal] [PinkTarget] -> [PinkPortal] [> Ghost PinkTarget]
++ [> Ghost BluePortal] [BlueTarget] -> [BluePortal] [> Ghost BlueTarget]
++ [> Ghost RedPortal] [RedTarget] -> [RedPortal] [> Ghost RedTarget]
++ [> Ghost GreenPortal] [GreenTarget] -> [GreenPortal] [> Ghost GreenTarget]
+
+
++ [Hardness3 Hardness2Ghost] -> [Hardness3]
++ [Hardness2 Hardness1Ghost] -> [Hardness2]
+
++ [PlayerGhost] -> [Player]
++ [> CrateGhost] -> [> Crate]
++ [> StoneCrateGhost] -> [> StoneCrate]
++ [> BallGhost] -> [> Ball]
+
+
+
+
++ [ > Ball | Crate] -> [Ball | ]
++ [ >  HeavyObject | PlayerLike ] -> [ HeavyObject | PlayerLike ]
++ [ >  HeavyObject | Object ] -> [  HeavyObject | > Object  ]
+
+
+
+
+
+
+[> Player CoveredHole] -> [> Player Hole]
+
+[> Object no PlayerLike | Pedestal] -> [Object | Pedestal]
+
+[> RedGate] [RedBarrier] -> [> RedGate] []
+[> BlueGate] [BlueBarrier] -> [> BlueGate] []
+[> YellowGate] [YellowBarrier] -> [> YellowGate] []
+
+[> Gate] -> [InactiveGate]
+
+[> StaticObject] -> [StaticObject]
+
+late [Object WaterLike] -> [DarkWater]
+
+late [Crate HoleLike] -> [FilledHole]
+late [Object no PlayerLike HoleLike] -> [Hole]
+late [PlayerLike Hole] -> [Hole]
+
+late [Player Spikes] -> [Spikes]
+
+late [PressurePlateUp Object] [Mutex] -> [PressurePlateDown Object Temp] []
++ late [PressurePlateDown no Object] [Mutex] -> [PressurePlateUp Temp] []
++ late [PressurePlate Temp] [GreenBarrier] -> [PressurePlate Temp] [GreenBarrier Temp]
++ late [GreenBarrierUp Temp] -> [GreenBarrierDown]
++ late [GreenBarrierDown Temp] -> [GreenBarrierUp]
++ late [PressurePlate Temp] [] -> [PressurePlate] [Mutex]
+
+==============
+WINCONDITIONS
+==============
+
+some Player on Exit
+
+=======
+LEVELS
+=======
+
+
+$........#~~~~#........$
+$.########....#######..$
+$.#########22########..$
+$.########....#######..$
+$$#a..$$........$b$.#$$$
+$$#$$..$........$1$.#$$$
+$$#$.**.......$.....#$$$
+###$.......p........####
+###.................####
+###vvvvvvvvvvvvvvvvv####
+vvvvvvvvvvvvvvvvvvvvvvvv
+vvvvvvvvvvvvvvvvvvvvvvvv
+
+vv$p$#$$$$$$$$$#........
+vv$.$#....3..._#######..
+vv$.$#.*..3....#######..
+vv...#_#uo####l#######..
+vv...#_#o*######...$~#..
+vv...#_#*u######...$u#.$
+vv.....#u*#b1......2u#.$
+vv.....#..#$$..*$...u###
+vvvv...##c#$$..*...$a###
+vvvvvvv####$$......$$###
+vvvvvvv####vvvvvvvvvvvvv
+vvvvvvvv###vvvvvvvvvvvvv
+
+####$$$$$$$$#........#vv
+####a$......##########vv
+`###.$...$$*##########vv
+####/$.*.$$3##########vv
+####......o.o........vvv
+##........o.o........vvv
+p.....@..$$!$$$$$2$$.vvv
+........./....@$$.$$.vvv
+##$\$....$$$\$$$...$vvvv
+$#$1$.....$...$$.c.$vvvv
+$#$b$.....$...$$...$vvvv
+$##########~~~$$$$$$vvvv
+
+######vvvvvvvvvvvvvvvvvv
+#`7.z#vvvvvvv.........vv
+#....#vvvvvv.......$*$$$
+##l#_#vvvvvv...y6..!..~$
+####_#vvvvv......#######
+####_#########$.$#$$$..$
+v.....#......#...#.....$
+v...@.#9/..&w#...#....x$
+vv....#......#.0.#.8...$
+vv$$$$########...#....$$
+vv$$$$########...#$$$$$$
+vv$$$$########.p.#$$$$$$
+
+
+
+

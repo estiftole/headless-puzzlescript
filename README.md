@@ -70,7 +70,7 @@ class WebSocketGameEnv:
 
 ## Single game thread
 ```python
-def run_single_game(game_id):
+def run_single_game(game_id=0):
     env = WebSocketGameEnv()
     env.start_session()
 
@@ -79,22 +79,21 @@ def run_single_game(game_id):
     env.draw()
 
     env.close()
+
+run_single_game()
 ```
 
-## Run multiple parallel game threads
+## Multiple game threads
 ```python
 import concurrent.futures
 
-if __name__ == "__main__":
-    num_games = 1
-    print(f"Launching {num_games} parallel game sessions concurrently...\n")
+num_games = 2
+print(f"Launching {num_games} parallel game sessions...\n")
 
-    total_start = time.time()
+total_start = time.time()
 
-    # ThreadPoolExecutor opens separate WebSocket connections for each game thread
-    with concurrent.futures.ThreadPoolExecutor(max_workers=num_games) as executor:
-        futures = [executor.submit(run_single_game, i) for i in range(num_games)]
-        results = [f.result() for f in futures]
-
-    print("\n--- Finished ---")
+# ThreadPoolExecutor opens separate WebSocket connections for each game thread
+with concurrent.futures.ThreadPoolExecutor(max_workers=num_games) as executor:
+    futures = [executor.submit(run_single_game, i) for i in range(num_games)]
+    results = [f.result() for f in futures]
 ```

@@ -11,7 +11,7 @@ cd headless-puzzlescript
 npm install
 
 # Run websocket server
-node servers/singe_env/wss.js
+node servers/wss.js
 ```
 
 To use your Puzzlescript game:
@@ -19,7 +19,7 @@ To use your Puzzlescript game:
 - Put that file in `/sources`
 - Modify `SOURCE_PATH` in `workers/singleEnvWorker.js`
 - Test that it works by running `node template.js`
-- Start websocket server with `node servers/singe_env/wss.js`
+- Start websocket server with `node servers/wss.js`
 
 # Python Example
 

@@ -1,7 +1,7 @@
 const { parentPort } = require('worker_threads');
 const { ParallelEnvironment } = require('../envs/parallelEnv.js');
 
-const GAME_TITLE = 'almost_akurra';
+const GAME_TITLE = 'example_game';
 // const GAME_TITLE = 'boston_tea_party';
 
 function getTwoLetterCode(index) {
@@ -12,8 +12,8 @@ function getTwoLetterCode(index) {
 
 class GameInstance {
   constructor(gameTitle, perfectMode) {
-    this.env = new ParallelEnvironment(gameTitle, false, perfectMode, 'broken_script');
-    // this.env = new ParallelEnvironment(gameTitle, false, perfectMode, 'empty_script');
+    this.env = new ParallelEnvironment(gameTitle, false, perfectMode, 'broken_game');
+    // this.env = new ParallelEnvironment(gameTitle, false, perfectMode, 'empty_game');
     this.stepSequence = [];
   }
 

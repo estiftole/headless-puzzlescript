@@ -284,8 +284,7 @@ class EnvWrapper {
     return differences;
   };
 
-  getDeltaSprite(state_before_action, state_after_action, currentLocation = []) {
-    let differences = [];
+  getDeltaSprite(state_before_action, state_after_action, currentLocation = [], differences = {}) {
     const maxLength = Math.max(state_before_action.length, state_after_action.length);
 
     for (let i = 0; i < maxLength; i++) {
@@ -296,13 +295,12 @@ class EnvWrapper {
       const isArray2 = Array.isArray(val2);
 
       if (isArray1 && isArray2) {
-        differences.push(...this.getDeltaSprite(val1, val2, [...currentLocation, i]));
+        this.getDeltaSprite(val1, val2, [...currentLocation, i], differences);
       } else if (isArray1 !== isArray2 || val1 !== val2) {
-        differences.push({
-          'sprite_location': [...currentLocation],
+        differences[`sprite_at_${currentLocation}`] = {
           'sprite_before_action': this.getColoredSprite(state_before_action),
           'sprite_after_action': this.getColoredSprite(state_after_action)
-        });
+        };
       }
     }
 

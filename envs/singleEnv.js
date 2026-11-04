@@ -258,14 +258,14 @@ class EnvWrapper {
     return this.rawSpriteCache[cacheKey];
   }
 
-  getDelta(start_state, end_state, currentLocation = []) {
+  getDelta(state_before_action, state_after_action, currentLocation = []) {
     let differences = [];
-    const maxLength = Math.max(start_state.length, end_state.length);
+    const maxLength = Math.max(state_before_action.length, state_after_action.length);
 
     for (let i = 0; i < maxLength; i++) {
       const location = [...currentLocation, i];
-      const val1 = start_state[i];
-      const val2 = end_state[i];
+      const val1 = state_before_action[i];
+      const val2 = state_after_action[i];
 
       const isArray1 = Array.isArray(val1);
       const isArray2 = Array.isArray(val2);
@@ -275,8 +275,8 @@ class EnvWrapper {
       } else if (isArray1 !== isArray2 || val1 !== val2) {
         differences.push({
           'location': [...currentLocation],
-          start_state,
-          end_state
+          state_before_action,
+          state_after_action
         });
       }
     }
@@ -284,13 +284,13 @@ class EnvWrapper {
     return differences;
   };
 
-  getDeltaSprite(start_state, end_state, currentLocation = []) {
+  getDeltaSprite(state_before_action, state_after_action, currentLocation = []) {
     let differences = [];
-    const maxLength = Math.max(start_state.length, end_state.length);
+    const maxLength = Math.max(state_before_action.length, state_after_action.length);
 
     for (let i = 0; i < maxLength; i++) {
-      const val1 = start_state[i];
-      const val2 = end_state[i];
+      const val1 = state_before_action[i];
+      const val2 = state_after_action[i];
 
       const isArray1 = Array.isArray(val1);
       const isArray2 = Array.isArray(val2);
@@ -300,8 +300,8 @@ class EnvWrapper {
       } else if (isArray1 !== isArray2 || val1 !== val2) {
         differences.push({
           'sprite_location': [...currentLocation],
-          'start_sprite': this.getColoredSprite(start_state),
-          'end_sprite': this.getColoredSprite(end_state)
+          'sprite_before_action': this.getColoredSprite(state_before_action),
+          'sprite_after_action': this.getColoredSprite(state_after_action)
         });
       }
     }
@@ -397,9 +397,9 @@ class EnvWrapper {
     let transition = {"action": action};
 
     if (logTransition) {
-      transition.start_state = {};
-      transition.start_state.abstract = (await this.getGameState()).grid_data.grid;
-      transition.start_state.image = await this.gridToImage(transition.start_state.abstract);
+      transition.state_before_action = {};
+      transition.state_before_action.abstract = (await this.getGameState()).grid_data.grid;
+      transition.state_before_action.image = await this.gridToImage(transition.state_before_action.abstract);
     };
 
     await this.eval(`
@@ -407,11 +407,11 @@ class EnvWrapper {
     `);
 
     if (logTransition) {
-      transition.end_state = {};
-      transition.end_state.abstract = (await this.getGameState()).grid_data.grid;
-      transition.end_state.image = await this.gridToImage(transition.end_state.abstract);
+      transition.state_after_action = {};
+      transition.state_after_action.abstract = (await this.getGameState()).grid_data.grid;
+      transition.state_after_action.image = await this.gridToImage(transition.state_after_action.abstract);
 
-      transition.delta = this.getDeltaSprite(transition.start_state.abstract, transition.end_state.abstract);
+      transition.delta = this.getDeltaSprite(transition.state_before_action.abstract, transition.state_after_action.abstract);
     };
 
 
@@ -524,7 +524,7 @@ class EnvWrapper {
             "image": obsTransition.start_image,
             "abstract": ""
           },
-          "note": "Diverged on first state before any actions."
+          "note": "Diverged on first state before_action any actions."
         },
         "actionsTaken": actionsTaken
         }

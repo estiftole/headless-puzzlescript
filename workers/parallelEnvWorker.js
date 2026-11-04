@@ -96,8 +96,8 @@ class GameInstance {
       const action = this.stepSequence[i];
       const { observedTransition, expectedTransition } = await this.env.step(action, true);
 
-      if (i === 0 && JSON.stringify(observedTransition.start_state.image) !== JSON.stringify(expectedTransition.start_state.image)) {
-        const { divergenceMatrix, divergenceDefinitions } = this.buildDivergenceMatrix(expectedTransition.start_state.abstract, observedTransition.start_state.abstract);
+      if (i === 0 && JSON.stringify(observedTransition.state_before_action.image) !== JSON.stringify(expectedTransition.state_before_action.image)) {
+        const { divergenceMatrix, divergenceDefinitions } = this.buildDivergenceMatrix(expectedTransition.state_before_action.abstract, observedTransition.state_before_action.abstract);
         return {
           'type_of_divergence': 'first_state',
           'transition_info': {
@@ -107,13 +107,13 @@ class GameInstance {
         }
       }
 
-      const match = JSON.stringify(observedTransition.end_state.image) === JSON.stringify(expectedTransition.end_state.image);
+      const match = JSON.stringify(observedTransition.state_after_action.image) === JSON.stringify(expectedTransition.state_after_action.image);
 
       if (!match) {
         return {
           'type_of_divergence': 'mid_sequence',
           'transition_info': {
-            'last_common_state': expectedTransition.start_state.abstract,
+            'last_common_state': expectedTransition.state_before_action.abstract,
             'action': action,
             'expected_delta': expectedTransition.delta,
             'observed_delta': observedTransition.delta,
@@ -155,11 +155,11 @@ class GameInstance {
     const reconstructedStartImage = await this.env.assetValidationEnv.gridToImage(startAbstract);
     const reconstructedEndImage = await this.env.assetValidationEnv.gridToImage(endAbstract);
 
-    const startStateMatch = JSON.stringify(reconstructedStartImage) === JSON.stringify(startImage);
-    const endStateMatch = JSON.stringify(reconstructedEndImage) === JSON.stringify(endImage);
+    const startStatesMatch = JSON.stringify(reconstructedStartImage) === JSON.stringify(startImage);
+    const endStatesMatch = JSON.stringify(reconstructedEndImage) === JSON.stringify(endImage);
     return {
-      'start_state_match': startStateMatch,
-      'end_state_match': endStateMatch,
+      'start_states_match': startStatesMatch,
+      'end_states_match': endStatesMatch,
     };
   }
 
@@ -269,7 +269,7 @@ parentPort.on('message', async (message) => {
         });
       }
       else if (message.type === 'evaluate_abstract_transition') {
-        const result = await game.evaluateAbstractTransition(message.start_state.image, message.start_state.abstract, message.end_state.image, message.end_state.abstract);
+        const result = await game.evaluateAbstractTransition(message.state_before_action.image, message.state_before_action.abstract, message.state_after_action.image, message.state_after_action.abstract);
         parentPort.postMessage({
           sessionId: message.sessionId,
           type: message.type,
